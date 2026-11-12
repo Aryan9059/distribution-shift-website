@@ -1,0 +1,5 @@
+role,images,tracks,classes
+train,15990,533,43
+ref,2970,99,43
+calib,2310,77,33
+test,5370,179,43

@@ -1,0 +1,5 @@
+detector,order,tau,mean_clean_score,nominal_p<0.05_alarm_rate_%,windows
+entropy,correlated,0.5038,0.298,90.2778,720
+entropy,shuffled,0.2286,0.1551,35.4167,720
+bbsds,correlated,0.8047,0.622,100.0,720
+bbsds,shuffled,0.2831,0.2244,31.5278,720

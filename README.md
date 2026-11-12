@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Distribution Shift: Detect, then Adapt
 
-## Getting Started
+Research demo for *Shift-Gated Test-Time Adaptation for Traffic-Sign Recognition under Tunnel Darkness and Fog*.
 
-First, run the development server:
+- **Overview** (`/`): problem, pipeline, dataset and model.
+- **Demonstration** (`/demo`): upload or pick a traffic-sign image, apply tunnel darkness or fog at severity 1–3, and see how the trained ResNet-18 responds (class, confidence, entropy).
+- **Results & Conclusions** (`/results`): the notebook's actual results, including the negative findings.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+app/, components/, lib/   Next.js 16 frontend (TypeScript, Tailwind, Recharts)
+backend/                  FastAPI + PyTorch service (loads the trained ResNet-18)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Run locally
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Backend** (Python 3.10+), needed for the Demonstration page:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+cd backend
+python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn app.main:app --port 8000
+```
 
-## Learn More
+The backend is ready when it prints `Application startup complete`; `http://localhost:8000/health` should answer.
 
-To learn more about Next.js, take a look at the following resources:
+**Frontend:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm install
+cp .env.example .env.local        # Windows: copy .env.example .env.local
+npm run dev                        # http://localhost:3000
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The Overview and Results pages work without the backend.
 
-## Deploy on Vercel
+## What is where
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| File | Purpose |
+|---|---|
+| `backend/artifacts/resnet18_source.pt` | trained checkpoint from the notebook |
+| `backend/artifacts/config.json` | thresholds, gate settings, normalisation and corruption settings |
+| `backend/artifacts/reference_entropy.npy` | clean reference entropies for the KS detector |
+| `backend/artifacts/test_pool.npz` | held-out test images (source of the sample images) |
+| `backend/artifacts/*.csv` | the notebook's result files (served by `/experiments`) |
+| `lib/data/results.json` | the CSVs aggregated for the Results page |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`reference_entropy.npy` and `test_pool.npz` were not exported by the notebook. `backend/scripts/export_data.py`
+rebuilds them with the notebook's split and asserts the 15,990 / 2,970 / 2,310 / 5,370 image counts.
+`backend/scripts/build_results_json.py <csv folder>` regenerates `lib/data/results.json`.
+
+## Correctness check
+
+`python backend/scripts/verify_notebook_match.py` replays the notebook's seed-0 streams through the backend's
+detector, gate and TENT code. For E2 and E3 it gave identical gate decisions and per-window accuracies in all
+166 windows; KS distances differ by at most 0.006 (CPU vs GPU rounding).
+
+## API
+
+Used by the Demonstration page: `GET /samples` · `POST /predict` · `POST /corrupt`.
+
+Also available: `GET /health` · `GET /experiments` · `GET /experiments/{id}` (stored notebook results) and the
+stream-simulation endpoints `GET /simulation/scenarios` · `POST /simulation/start` · `POST /simulation/{id}/step`
+· `GET /simulation/{id}/status` · `POST /simulation/{id}/reset`. The simulation endpoints run the notebook's
+streams window by window through the detector, gate and TENT, with a separate model state per session. The current
+website does not use them (`components/StreamDemo.tsx` is an unused component); add it back to `app/demo/page.tsx`
+to re-enable the live stream demo.
+
+## Deploying
+
+Frontend on Vercel (set `NEXT_PUBLIC_API_URL` to the backend URL). Backend on Render or a Hugging Face Space, with
+`ALLOWED_ORIGINS` set to the frontend URL. The backend needs about 1 GB of RAM (PyTorch); free tiers with 512 MB
+may not be enough. The included `backend/Dockerfile` has not been tested.

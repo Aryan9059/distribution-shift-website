@@ -1,0 +1,136 @@
+{
+  "seed": 42,
+  "img_size": 48,
+  "split_fractions": {
+    "train": 0.6,
+    "val": 0.2,
+    "test": 0.2
+  },
+  "epochs": 15,
+  "batch_size": 128,
+  "lr": 0.001,
+  "weight_decay": 0.0005,
+  "window": 64,
+  "n_calib_streams": 20,
+  "tau_quantile": 0.95,
+  "burst_severity": 2.0,
+  "e5_max_severity": 3.0,
+  "tent_lr": 0.001,
+  "bn_momentum": 0.1,
+  "gate_grid": [
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      3,
+      2
+    ],
+    [
+      3,
+      3
+    ]
+  ],
+  "stream_seeds": [
+    0,
+    1,
+    2
+  ],
+  "collapse": {
+    "excess_concentration": 0.3,
+    "max_acc": 0.3
+  },
+  "norm_mean": [
+    0.338,
+    0.3093,
+    0.3186
+  ],
+  "norm_std": [
+    0.272,
+    0.2599,
+    0.2662
+  ],
+  "tunnel_params": {
+    "brightness": [
+      1.0,
+      0.55,
+      0.38,
+      0.25
+    ],
+    "gamma": [
+      1.0,
+      1.15,
+      1.3,
+      1.5
+    ],
+    "noise": [
+      0.0,
+      0.01,
+      0.02,
+      0.03
+    ],
+    "blur": [
+      0.0,
+      0.3,
+      0.5,
+      0.7
+    ]
+  },
+  "fog_params": {
+    "alpha": [
+      0.0,
+      0.35,
+      0.5,
+      0.65
+    ],
+    "blur": [
+      0.0,
+      0.5,
+      0.8,
+      1.1
+    ]
+  },
+  "schedules": {
+    "E1_clean": "clean only",
+    "E2_tunnel_bursts": "7 equal segments: clean / tunnel s2.0 x3 / clean",
+    "E3_fog_bursts": "7 equal segments: clean / fog s2.0 x3 / clean",
+    "E4_recovery": "20% clean, 20% tunnel s2.0, 20% fog s2.0, 40% clean",
+    "E5_slow_fog": "15% clean, then fog rising linearly to s3.0 and never clearing"
+  },
+  "tau": {
+    "entropy": {
+      "correlated": 0.5038057659932659,
+      "shuffled": 0.22857744107744105
+    },
+    "bbsds": {
+      "correlated": 0.8047043350168349,
+      "shuffled": 0.28306712962962965
+    }
+  },
+  "gate_m": 3,
+  "gate_k": 1
+}

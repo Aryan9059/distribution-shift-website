@@ -1,0 +1,9 @@
+data,condition,severity,resnet18_acc,hog_svm_acc
+held-out test tracks,clean,0,94.12,81.58
+held-out test tracks,tunnel,1,87.6,67.93
+held-out test tracks,tunnel,2,68.64,42.63
+held-out test tracks,tunnel,3,40.73,18.42
+held-out test tracks,fog,1,75.75,73.74
+held-out test tracks,fog,2,55.53,59.33
+held-out test tracks,fog,3,33.45,36.89
+official GTSRB test,clean,0,95.0,81.47
