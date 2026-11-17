@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Distribution Shift",
+  title: "Detect, Trust, then Adapt",
   description:
-    "Shift-gated test-time adaptation for traffic-sign recognition under tunnel darkness and fog.",
+    "Evidence-weighted test-time normalisation for temporally correlated traffic-sign streams under tunnel darkness and fog.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

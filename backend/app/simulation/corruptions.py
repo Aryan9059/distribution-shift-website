@@ -1,8 +1,11 @@
-"""Tunnel-darkness and fog corruptions. Ported unchanged from the notebook so the demo sees the same shifts."""
+"""Tunnel-darkness and fog corruptions, ported from the Detect-Trust-Adapt package (lib.py: tunnel, fog) so the
+demo sees the same shifts the published results were measured on."""
 import numpy as np
+import torch
+import torch.nn.functional as F
 from scipy.ndimage import gaussian_filter
 
-from ..config import CFG, IMG
+from ..config import CFG
 
 LEVELS = [0, 1, 2, 3]
 TUNNEL = CFG["tunnel_params"]
@@ -14,7 +17,8 @@ def _level(table, key, sev):
 
 
 def _blur(x, sigma):
-    return gaussian_filter(x, sigma=(0, sigma, sigma, 0)) if sigma > 0 else x
+    # Package: separable Gaussian, radius ceil(3 sigma), reflect padding without edge repeat (scipy "mirror").
+    return gaussian_filter(x, sigma=(0, sigma, sigma, 0), mode="mirror", truncate=3.0) if sigma > 1e-6 else x
 
 
 def _to_uint8(x):
@@ -31,12 +35,14 @@ def tunnel_darkness(X, sev, rng):
 
 
 def fog(X, sev, rng):
-    """Blur, then blend towards a bright and slightly uneven haze."""
+    """Blur, then blend towards a bright, spatially uneven haze (a 4x4 random field upsampled bilinearly)."""
     x = _blur(X.astype(np.float32) / 255, _level(FOG, "blur", sev))
-    haze = gaussian_filter(rng.normal(size=(len(x), IMG, IMG, 1)).astype(np.float32), sigma=(0, 6, 6, 0))
-    haze = 0.8 + 0.08 * haze / (haze.std(axis=(1, 2, 3), keepdims=True) + 1e-6)
+    n, h, w, _ = x.shape
+    low = torch.from_numpy(rng.random((n, 1, 4, 4), dtype=np.float32))
+    up = F.interpolate(low, size=(h, w), mode="bilinear", align_corners=False)
+    haze = (0.85 + 0.1 * up).permute(0, 2, 3, 1).numpy()
     a = _level(FOG, "alpha", sev)
-    return _to_uint8((1 - a) * x + a * haze)
+    return _to_uint8(x * (1 - a) + haze * a)
 
 
 def corrupt(X, cond, sev, rng):

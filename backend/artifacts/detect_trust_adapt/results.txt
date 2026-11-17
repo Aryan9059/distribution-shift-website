@@ -1,0 +1,200 @@
+stream seeds: [0, 1, 2] | frozen config (validation only): {'detector': 'stat:all', 'm': 1, 'k': 1, 'N0': 0, 'adapter': 'ses'}
+
+====================================================================================================
+CORE RESULTS, filmed-order (correlated) test streams - ACCURACY (%) mean ± std over stream seeds
+====================================================================================================
+                                                   overall       clean       shift  post_clean    worst_win    macro_f1
+experiment       policy                                                                                                
+E1 clean         Never adapt                    94.6 ± 0.0  94.6 ± 0.0           —           —   50.0 ± 4.1  85.6 ± 0.1
+                 Always TENT                    67.8 ± 1.4  67.8 ± 1.4           —           —    6.8 ± 6.3  53.3 ± 2.8
+                 Gated TENT (original)          94.6 ± 0.0  94.6 ± 0.0           —           —   50.0 ± 4.1  85.6 ± 0.1
+                 Gated BN (original)            94.6 ± 0.0  94.6 ± 0.0           —           —   50.0 ± 4.1  85.6 ± 0.1
+                 Oracle TENT                    94.6 ± 0.0  94.6 ± 0.0           —           —   50.0 ± 4.1  85.6 ± 0.1
+                 SES gate + SES adapter (ours)  93.4 ± 0.5  93.4 ± 0.5           —           —   42.2 ± 9.5  84.1 ± 0.5
+                 Oracle-timed SES adapter       94.6 ± 0.0  94.6 ± 0.0           —           —   50.0 ± 4.1  85.6 ± 0.1
+E2 tunnel bursts Never adapt                    88.0 ± 0.3  95.0 ± 0.7  78.4 ± 0.4  95.0 ± 1.0   37.0 ± 9.4  79.5 ± 1.2
+                 Always TENT                    62.6 ± 1.2  66.7 ± 1.0  56.9 ± 2.3  66.7 ± 1.6    6.8 ± 6.3  49.2 ± 2.6
+                 Gated TENT (original)          87.7 ± 0.7  95.0 ± 0.7  77.7 ± 1.3  95.0 ± 1.0   37.0 ± 9.4  79.2 ± 0.8
+                 Gated BN (original)            88.0 ± 0.3  95.0 ± 0.7  78.4 ± 0.4  95.0 ± 1.0   37.0 ± 9.4  79.4 ± 1.2
+                 Oracle TENT                    79.0 ± 0.9  95.0 ± 0.7  57.0 ± 2.3  95.0 ± 1.0  13.0 ± 10.2  69.0 ± 2.7
+                 SES gate + SES adapter (ours)  87.5 ± 0.6  93.3 ± 0.7  79.5 ± 1.0  93.2 ± 1.5   31.2 ± 3.1  78.3 ± 0.4
+                 Oracle-timed SES adapter       89.7 ± 0.7  95.0 ± 0.7  82.3 ± 0.9  95.0 ± 1.0   45.3 ± 5.6  81.3 ± 0.9
+E3 fog bursts    Never adapt                    76.7 ± 2.4  95.0 ± 0.7  51.6 ± 4.9  95.0 ± 1.0    2.6 ± 4.5  67.5 ± 2.9
+                 Always TENT                    66.2 ± 1.6  66.8 ± 0.9  65.4 ± 3.3  66.8 ± 1.5    4.2 ± 3.9  52.3 ± 2.4
+                 Gated TENT (original)          79.2 ± 1.3  95.0 ± 0.7  57.6 ± 2.4  95.0 ± 1.0    5.2 ± 4.5  69.5 ± 4.0
+                 Gated BN (original)            80.7 ± 2.1  95.0 ± 0.7  61.2 ± 4.8  95.0 ± 1.0    5.2 ± 4.5  70.5 ± 4.6
+                 Oracle TENT                    82.6 ± 1.1  95.0 ± 0.7  65.7 ± 3.0  95.0 ± 1.0  14.1 ± 10.8  72.3 ± 2.8
+                 SES gate + SES adapter (ours)  91.5 ± 1.3  92.4 ± 1.2  90.4 ± 1.7  92.0 ± 2.6  25.0 ± 15.1  82.7 ± 0.6
+                 Oracle-timed SES adapter       93.1 ± 0.4  95.0 ± 0.7  90.5 ± 1.5  95.0 ± 1.0  35.9 ± 10.9  84.2 ± 0.6
+E4 recovery      Never adapt                    83.7 ± 0.7  95.1 ± 1.1  66.5 ± 3.3  95.4 ± 2.2    5.7 ± 5.5  74.2 ± 1.5
+                 Always TENT                    64.9 ± 1.4  67.3 ± 1.3  61.2 ± 2.1  68.1 ± 4.3    6.8 ± 4.8  51.8 ± 1.6
+                 Gated TENT (original)          84.7 ± 0.5  95.1 ± 1.1  68.9 ± 2.7  95.4 ± 2.2   18.8 ± 7.8  75.5 ± 1.1
+                 Gated BN (original)            85.5 ± 0.5  95.1 ± 1.1  71.0 ± 2.3  95.4 ± 2.2   17.2 ± 5.6  76.2 ± 1.5
+                 Oracle TENT                    81.8 ± 1.0  95.1 ± 1.1  61.6 ± 2.0  95.4 ± 2.2   16.7 ± 9.4  71.1 ± 1.1
+                 SES gate + SES adapter (ours)  89.7 ± 2.5  93.5 ± 1.9  83.9 ± 4.2  93.9 ± 3.2  27.1 ± 10.0  79.6 ± 2.2
+                 Oracle-timed SES adapter       91.8 ± 1.2  95.1 ± 1.1  86.8 ± 1.9  95.4 ± 2.2  31.2 ± 17.4  82.5 ± 1.0
+E5 slow fog      Never adapt                    72.5 ± 1.3  95.0 ± 3.3  68.6 ± 1.0           —    0.0 ± 0.0  63.7 ± 1.8
+                 Always TENT                    65.6 ± 1.7  66.6 ± 8.1  65.4 ± 1.7           —    5.2 ± 2.4  52.0 ± 2.0
+                 Gated TENT (original)          77.2 ± 1.3  95.0 ± 3.3  74.2 ± 1.1           —    7.8 ± 7.2  66.5 ± 1.1
+                 Gated BN (original)            79.8 ± 1.8  95.0 ± 3.3  77.2 ± 1.5           —    7.8 ± 7.2  69.4 ± 1.3
+                 Oracle TENT                    69.9 ± 1.4  95.0 ± 3.3  65.7 ± 1.5           —  10.9 ± 10.8  56.7 ± 1.5
+                 SES gate + SES adapter (ours)  91.4 ± 0.5  93.5 ± 3.2  91.0 ± 0.4           —  35.9 ± 10.8  82.1 ± 1.2
+                 Oracle-timed SES adapter       92.4 ± 0.2  95.0 ± 3.3  92.0 ± 0.4           —  37.5 ± 10.9  83.9 ± 0.3
+
+====================================================================================================
+CORE RESULTS, filmed-order - COST / DETECTION
+====================================================================================================
+                                               adapt_steps clean_adapted false_alarms  fa_per_1k       delay     missed shift_coverage      resets
+experiment       policy                                                                                                                           
+E1 clean         Gated TENT (original)           0.0 ± 0.0     0.0 ± 0.0    0.0 ± 0.0  0.0 ± 0.0           —  0.0 ± 0.0      0.0 ± 0.0   0.0 ± 0.0
+                 SES gate + SES adapter (ours)   9.0 ± 1.0     9.0 ± 1.0    8.0 ± 1.0  1.5 ± 0.2           —  0.0 ± 0.0      0.0 ± 0.0   8.0 ± 1.0
+                 Oracle-timed SES adapter        0.0 ± 0.0     0.0 ± 0.0    0.0 ± 0.0  0.0 ± 0.0           —  0.0 ± 0.0      0.0 ± 0.0   0.0 ± 0.0
+E2 tunnel bursts Gated TENT (original)           1.0 ± 1.7     0.0 ± 0.0    0.0 ± 0.0  0.0 ± 0.0   6.0 ± 0.0  2.3 ± 1.2      2.9 ± 4.9   0.7 ± 1.2
+                 SES gate + SES adapter (ours)  30.0 ± 2.6     6.7 ± 1.2    5.0 ± 1.0  1.6 ± 0.3   0.3 ± 0.3  0.0 ± 0.0    66.7 ± 10.8  15.0 ± 1.7
+                 Oracle-timed SES adapter       35.0 ± 0.0     0.0 ± 0.0    0.0 ± 0.0  0.0 ± 0.0   0.0 ± 0.0  0.0 ± 0.0    100.0 ± 0.0   3.0 ± 0.0
+E3 fog bursts    Gated TENT (original)          11.0 ± 4.0     0.0 ± 0.0    0.0 ± 0.0  0.0 ± 0.0   3.4 ± 1.0  0.3 ± 0.6    31.4 ± 11.4   4.3 ± 0.6
+                 SES gate + SES adapter (ours)  41.7 ± 1.2     6.7 ± 1.2    5.0 ± 1.0  1.6 ± 0.3   0.0 ± 0.0  0.0 ± 0.0    100.0 ± 0.0   7.3 ± 1.2
+                 Oracle-timed SES adapter       35.0 ± 0.0     0.0 ± 0.0    0.0 ± 0.0  0.0 ± 0.0   0.0 ± 0.0  0.0 ± 0.0    100.0 ± 0.0   3.0 ± 0.0
+E4 recovery      Gated TENT (original)           6.0 ± 1.0     0.0 ± 0.0    0.0 ± 0.0  0.0 ± 0.0   5.0 ± 1.0  0.7 ± 0.6     18.2 ± 3.0   2.3 ± 0.6
+                 SES gate + SES adapter (ours)  32.3 ± 1.5     5.7 ± 0.6    4.7 ± 0.6  1.5 ± 0.2   0.2 ± 0.3  0.0 ± 0.0     80.8 ± 4.6   9.7 ± 0.6
+                 Oracle-timed SES adapter       33.0 ± 0.0     0.0 ± 0.0    0.0 ± 0.0  0.0 ± 0.0   0.0 ± 0.0  0.0 ± 0.0    100.0 ± 0.0   1.0 ± 0.0
+E5 slow fog      Gated TENT (original)          17.7 ± 1.2     0.0 ± 0.0    0.0 ± 0.0  0.0 ± 0.0  31.7 ± 7.4  0.0 ± 0.0     24.9 ± 1.6   5.3 ± 2.1
+                 SES gate + SES adapter (ours)  57.0 ± 1.0     1.0 ± 1.0    1.0 ± 1.0  1.3 ± 1.3   7.0 ± 3.6  0.0 ± 0.0     78.9 ± 2.4   6.7 ± 0.6
+                 Oracle-timed SES adapter       71.0 ± 0.0     0.0 ± 0.0    0.0 ± 0.0  0.0 ± 0.0   0.0 ± 0.0  0.0 ± 0.0    100.0 ± 0.0   1.0 ± 0.0
+
+====================================================================================================
+PAIRED DIFFERENCES vs never-adapt (same stream, percentage points of overall accuracy)
+====================================================================================================
+     order       experiment                        policy  mean_diff   min   max  better  equal  worse  shift_diff
+correlated         E1 clean         Gated TENT (original)       0.00  0.00  0.00       0      3      0         NaN
+correlated         E1 clean           Gated BN (original)       0.00  0.00  0.00       0      3      0         NaN
+correlated         E1 clean SES gate + SES adapter (ours)      -1.19 -1.52 -0.58       0      0      3         NaN
+correlated E2 tunnel bursts         Gated TENT (original)      -0.27 -0.81  0.00       0      2      1       -0.64
+correlated E2 tunnel bursts           Gated BN (original)      -0.01 -0.02  0.00       0      2      1       -0.01
+correlated E2 tunnel bursts SES gate + SES adapter (ours)      -0.51 -0.72 -0.13       0      0      3        1.12
+correlated    E3 fog bursts         Gated TENT (original)       2.54  1.51  3.71       3      0      0        6.01
+correlated    E3 fog bursts           Gated BN (original)       4.03  2.20  5.44       3      0      0        9.57
+correlated    E3 fog bursts SES gate + SES adapter (ours)      14.86 11.28 18.28       3      0      0       38.85
+correlated      E4 recovery         Gated TENT (original)       0.95  0.45  1.45       3      0      0        2.38
+correlated      E4 recovery           Gated BN (original)       1.79  1.11  2.62       3      0      0        4.50
+correlated      E4 recovery SES gate + SES adapter (ours)       5.97  2.60  8.55       3      0      0       17.38
+correlated      E5 slow fog         Gated TENT (original)       4.71  3.52  5.52       3      0      0        5.51
+correlated      E5 slow fog           Gated BN (original)       7.31  6.53  8.38       3      0      0        8.55
+correlated      E5 slow fog SES gate + SES adapter (ours)      18.93 18.05 20.12       3      0      0       22.37
+  shuffled         E1 clean         Gated TENT (original)       0.00  0.00  0.00       0      3      0         NaN
+  shuffled         E1 clean           Gated BN (original)       0.00  0.00  0.00       0      3      0         NaN
+  shuffled         E1 clean SES gate + SES adapter (ours)      -0.01 -0.02  0.00       0      2      1         NaN
+  shuffled E2 tunnel bursts         Gated TENT (original)       2.47  1.92  3.05       3      0      0        5.86
+  shuffled E2 tunnel bursts           Gated BN (original)       2.09  1.71  2.30       3      0      0        4.96
+  shuffled E2 tunnel bursts SES gate + SES adapter (ours)       3.05  2.64  3.35       3      0      0        7.23
+  shuffled    E3 fog bursts         Gated TENT (original)      14.55 12.61 16.62       3      0      0       34.49
+  shuffled    E3 fog bursts           Gated BN (original)      12.66 10.43 14.85       3      0      0       30.01
+  shuffled    E3 fog bursts SES gate + SES adapter (ours)      17.29 15.04 19.88       3      0      0       41.01
+
+====================================================================================================
+SAME FRAMES SHUFFLED (i.i.d. control) - ACCURACY (%)
+====================================================================================================
+                                                   overall       clean       shift
+experiment       policy                                                           
+E1 clean         Never adapt                    94.6 ± 0.0  94.6 ± 0.0           —
+                 Always TENT                    94.8 ± 0.2  94.8 ± 0.2           —
+                 Gated TENT (original)          94.6 ± 0.0  94.6 ± 0.0           —
+                 Gated BN (original)            94.6 ± 0.0  94.6 ± 0.0           —
+                 Oracle TENT                    94.6 ± 0.0  94.6 ± 0.0           —
+                 SES gate + SES adapter (ours)  94.6 ± 0.0  94.6 ± 0.0           —
+                 Oracle-timed SES adapter       94.6 ± 0.0  94.6 ± 0.0           —
+E2 tunnel bursts Never adapt                    88.0 ± 0.3  95.0 ± 0.7  78.4 ± 0.4
+                 Always TENT                    91.3 ± 0.6  95.1 ± 0.6  86.0 ± 0.7
+                 Gated TENT (original)          90.5 ± 0.8  95.0 ± 0.7  84.2 ± 1.0
+                 Gated BN (original)            90.1 ± 0.5  95.0 ± 0.7  83.3 ± 0.4
+                 Oracle TENT                    91.1 ± 0.8  95.0 ± 0.7  85.8 ± 1.1
+                 SES gate + SES adapter (ours)  91.0 ± 0.6  95.0 ± 0.7  85.6 ± 0.5
+                 Oracle-timed SES adapter       91.0 ± 0.6  95.0 ± 0.7  85.6 ± 0.5
+E3 fog bursts    Never adapt                    76.7 ± 2.4  95.0 ± 0.7  51.6 ± 4.9
+                 Always TENT                    94.1 ± 0.4  94.9 ± 0.8  93.0 ± 1.0
+                 Gated TENT (original)          91.2 ± 0.5  95.0 ± 0.7  86.1 ± 1.1
+                 Gated BN (original)            89.3 ± 0.5  95.0 ± 0.7  81.6 ± 1.6
+                 Oracle TENT                    94.1 ± 0.3  95.0 ± 0.7  92.8 ± 1.1
+                 SES gate + SES adapter (ours)  94.0 ± 0.2  95.0 ± 0.7  92.6 ± 1.3
+                 Oracle-timed SES adapter       94.0 ± 0.2  95.0 ± 0.7  92.6 ± 1.3
+                                               adapt_steps false_alarms      delay     missed shift_coverage
+experiment       policy                                                                                     
+E1 clean         Gated TENT (original)           0.0 ± 0.0    0.0 ± 0.0          —  0.0 ± 0.0      0.0 ± 0.0
+                 SES gate + SES adapter (ours)   0.3 ± 0.6    0.3 ± 0.6          —  0.0 ± 0.0      0.0 ± 0.0
+E2 tunnel bursts Gated TENT (original)          27.7 ± 1.2    0.0 ± 0.0  1.8 ± 0.2  0.0 ± 0.0     79.0 ± 3.3
+                 SES gate + SES adapter (ours)  36.0 ± 1.0    1.0 ± 1.0  0.0 ± 0.0  0.0 ± 0.0    100.0 ± 0.0
+E3 fog bursts    Gated TENT (original)          29.0 ± 0.0    0.0 ± 0.0  2.0 ± 0.0  0.0 ± 0.0     82.9 ± 0.0
+                 SES gate + SES adapter (ours)  36.3 ± 1.5    1.3 ± 1.5  0.0 ± 0.0  0.0 ± 0.0    100.0 ± 0.0
+
+====================================================================================================
+DETECTORS: per-window alarm rate (%) at the calibrated threshold
+====================================================================================================
+     order     detector clean (E1) tunnel (E2)    fog (E3)
+correlated      entropy  4.8 ± 1.2  30.5 ± 5.9  73.3 ± 5.9
+correlated        bbsds  6.8 ± 1.4  44.8 ± 5.9  82.9 ± 5.7
+correlated   stat:pixel  2.4 ± 2.4  65.7 ± 4.9  96.2 ± 1.6
+correlated    stat:stem  2.0 ± 1.4  38.1 ± 7.2  37.1 ± 4.9
+correlated stat:shallow  2.4 ± 1.2  41.0 ± 8.2 100.0 ± 0.0
+correlated     stat:all 10.8 ± 1.2 66.7 ± 10.8 100.0 ± 0.0
+  shuffled      entropy  1.2 ± 1.2  98.1 ± 1.6 100.0 ± 0.0
+  shuffled        bbsds  0.8 ± 0.7 100.0 ± 0.0 100.0 ± 0.0
+  shuffled   stat:pixel  0.8 ± 0.7 100.0 ± 0.0 100.0 ± 0.0
+  shuffled    stat:stem  0.0 ± 0.0 100.0 ± 0.0 100.0 ± 0.0
+  shuffled stat:shallow  2.0 ± 1.4 100.0 ± 0.0 100.0 ± 0.0
+  shuffled     stat:all  0.4 ± 0.7 100.0 ± 0.0 100.0 ± 0.0
+nominal p<0.05 entropy-KS alarm rate on clean E1: {'correlated': '92.0 ± 2.5', 'shuffled': '5.2 ± 2.5'}
+
+====================================================================================================
+ABLATIONS + TENT DECOMPOSITION (filmed order)
+====================================================================================================
+                                                                       overall       clean       shift
+experiment       policy                                                                               
+E1 clean         Never adapt                                        94.6 ± 0.0  94.6 ± 0.0           —
+                 Gated TENT (original)                              94.6 ± 0.0  94.6 ± 0.0           —
+                 SES gate + SES adapter (ours)                      93.4 ± 0.5  93.4 ± 0.5           —
+                 old entropy gate + SES adapter                     94.6 ± 0.0  94.6 ± 0.0           —
+                 new gate + TENT                                    89.9 ± 0.8  89.9 ± 0.8           —
+                 new gate + BN-EMA                                  94.6 ± 0.1  94.6 ± 0.1           —
+                 new gate + untrusted blend (ESS)                   94.3 ± 0.2  94.3 ± 0.2           —
+                 SES adapter always on, no gate/reset               94.3 ± 0.3  94.3 ± 0.3           —
+                 Oracle TENT                                        94.6 ± 0.0  94.6 ± 0.0           —
+                 oracle: batch statistics only (no gradient)        94.6 ± 0.0  94.6 ± 0.0           —
+                 oracle: entropy gradient only (source statistics)  94.6 ± 0.0  94.6 ± 0.0           —
+                 Oracle-timed SES adapter                           94.6 ± 0.0  94.6 ± 0.0           —
+E2 tunnel bursts Never adapt                                        88.0 ± 0.3  95.0 ± 0.7  78.4 ± 0.4
+                 Gated TENT (original)                              87.7 ± 0.7  95.0 ± 0.7  77.7 ± 1.3
+                 SES gate + SES adapter (ours)                      87.5 ± 0.6  93.3 ± 0.7  79.5 ± 1.0
+                 old entropy gate + SES adapter                     88.0 ± 0.3  95.0 ± 0.7  78.4 ± 0.3
+                 new gate + TENT                                    78.4 ± 1.5  88.6 ± 0.3  64.4 ± 3.1
+                 new gate + BN-EMA                                  89.3 ± 0.4  94.8 ± 0.5  81.8 ± 0.9
+                 new gate + untrusted blend (ESS)                   88.7 ± 0.2  94.4 ± 0.4  81.0 ± 0.3
+                 SES adapter always on, no gate/reset               89.9 ± 0.2  94.6 ± 0.3  83.4 ± 0.6
+                 Oracle TENT                                        79.0 ± 0.9  95.0 ± 0.7  57.0 ± 2.3
+                 oracle: batch statistics only (no gradient)        79.0 ± 1.0  95.0 ± 0.7  57.0 ± 2.5
+                 oracle: entropy gradient only (source statistics)  88.1 ± 0.3  95.0 ± 0.7  78.7 ± 0.3
+                 Oracle-timed SES adapter                           89.7 ± 0.7  95.0 ± 0.7  82.3 ± 0.9
+E3 fog bursts    Never adapt                                        76.7 ± 2.4  95.0 ± 0.7  51.6 ± 4.9
+                 Gated TENT (original)                              79.2 ± 1.3  95.0 ± 0.7  57.6 ± 2.4
+                 SES gate + SES adapter (ours)                      91.5 ± 1.3  92.4 ± 1.2  90.4 ± 1.7
+                 old entropy gate + SES adapter                     82.6 ± 0.9  95.0 ± 0.7  65.6 ± 2.1
+                 new gate + TENT                                    79.0 ± 1.2  88.6 ± 0.3  65.7 ± 3.0
+                 new gate + BN-EMA                                  90.4 ± 0.9  93.8 ± 1.3  85.7 ± 0.8
+                 new gate + untrusted blend (ESS)                   90.7 ± 0.6  93.4 ± 1.2  86.9 ± 0.5
+                 SES adapter always on, no gate/reset               81.3 ± 1.2  84.1 ± 2.6  77.4 ± 0.9
+                 Oracle TENT                                        82.6 ± 1.1  95.0 ± 0.7  65.7 ± 3.0
+                 oracle: batch statistics only (no gradient)        82.6 ± 1.1  95.0 ± 0.7  65.7 ± 3.0
+                 oracle: entropy gradient only (source statistics)  76.2 ± 2.9  95.0 ± 0.7  50.3 ± 6.0
+                 Oracle-timed SES adapter                           93.1 ± 0.4  95.0 ± 0.7  90.5 ± 1.5
+
+====================================================================================================
+STATIC ROBUSTNESS (frame-level)
+====================================================================================================
+                data condition  severity  resnet18  hog_svm
+held-out test tracks     clean         0     94.66    89.98
+held-out test tracks    tunnel         1     91.55    81.94
+held-out test tracks    tunnel         2     78.79    58.99
+held-out test tracks    tunnel         3     55.40    29.93
+held-out test tracks       fog         1     81.10    88.62
+held-out test tracks       fog         2     54.41    85.01
+held-out test tracks       fog         3     27.82    73.56
+ official GTSRB test     clean         0     95.55    89.28

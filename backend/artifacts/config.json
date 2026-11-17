@@ -65,14 +65,14 @@
     "max_acc": 0.3
   },
   "norm_mean": [
-    0.338,
-    0.3093,
-    0.3186
+    0.2943273,
+    0.2708281,
+    0.2814782
   ],
   "norm_std": [
-    0.272,
-    0.2599,
-    0.2662
+    0.2612142,
+    0.249656,
+    0.256651
   ],
   "tunnel_params": {
     "brightness": [
@@ -132,5 +132,6 @@
     }
   },
   "gate_m": 3,
-  "gate_k": 1
+  "gate_k": 1,
+  "model": "Detect-Trust-Adapt package: resnet18_original_geo_aug.pt"
 }
